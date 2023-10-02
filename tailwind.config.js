@@ -2,7 +2,14 @@
 export default {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 	theme: {
-		extend: {}
+		extend: {
+			fontFamily: {
+				spacemono: ['Space Mono', 'monospace']
+			}
+		}
 	},
-	plugins: []
+	plugins: [
+		require('@tailwindcss/forms'),
+		require('@tailwindcss/typography'),
+	]
 };
