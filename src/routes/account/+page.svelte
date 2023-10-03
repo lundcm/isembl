@@ -47,7 +47,7 @@
 				profileForm.requestSubmit();
 			}}
 		/>
-		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+		<div class="mb-2 grid gap-4 sm:grid-cols-2 sm:gap-6">
 			<div class="w-full">
 				<Label for="email" class="mb-2">Email</Label>
 				<Input id="email" type="email" value={session.user.email} required disabled>
