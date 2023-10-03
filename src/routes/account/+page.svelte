@@ -3,6 +3,10 @@
 	import { enhance, type SubmitFunction } from '$app/forms';
 	import Avatar from './Avatar.svelte';
 
+	import { Section } from 'flowbite-svelte-blocks';
+	import { Button, Fileupload, Input, Label } from 'flowbite-svelte';
+	import { EnvelopeSolid, UserSolid } from 'flowbite-svelte-icons';
+
 	export let data;
 	export let form;
 
@@ -32,14 +36,9 @@
 	};
 </script>
 
-<div class="form-widget">
-	<form
-		class="form-widget"
-		method="post"
-		action="?/update"
-		use:enhance={handleSubmit}
-		bind:this={profileForm}
-	>
+<Section name="portfolio">
+	<h2 class="mb-4 text-xl font-bold text-gray-900 dark:text-white">Add a new product</h2>
+	<form method="post" action="?/update" use:enhance={handleSubmit} bind:this={profileForm}>
 		<Avatar
 			{supabase}
 			bind:url={avatarUrl}
@@ -48,39 +47,31 @@
 				profileForm.requestSubmit();
 			}}
 		/>
-		<div>
-			<label for="email">Email</label>
-			<input id="email" type="text" value={session.user.email} disabled />
+		<div class="grid gap-4 sm:grid-cols-2 sm:gap-6">
+			<div class="w-full">
+				<Label for="email" class="mb-2">Email</Label>
+				<Input id="email" type="email" value={session.user.email} required disabled>
+					<EnvelopeSolid slot="left" />
+				</Input>
+			</div>
+			<div class="w-full">
+				<Label for="fullName" class="mb-2">Full Name</Label>
+				<Input id="fullName" name="fullName" type="text" value={form?.fullName ?? fullName}>
+					<UserSolid slot="left" />
+				</Input>
+			</div>
+			<!--  -->
+			<div class="w-full">
+				<Label for="website" class="mb-2">Website</Label>
+				<Input id="website" name="website" type="url" value={form?.website ?? website} />
+			</div>
+			<div class="w-full">
+				<Label for="username" class="mb-2">Username</Label>
+				<Input id="username" name="username" type="text" value={form?.username ?? username}>
+					<UserSolid slot="left" />
+				</Input>
+			</div>
 		</div>
-
-		<div>
-			<label for="fullName">Full Name</label>
-			<input id="fullName" name="fullName" type="text" value={form?.fullName ?? fullName} />
-		</div>
-
-		<div>
-			<label for="username">Username</label>
-			<input id="username" name="username" type="text" value={form?.username ?? username} />
-		</div>
-
-		<div>
-			<label for="website">Website</label>
-			<input id="website" name="website" type="url" value={form?.website ?? website} />
-		</div>
-
-		<div>
-			<input
-				type="submit"
-				class="button primary block"
-				value={loading ? 'Loading...' : 'Update'}
-				disabled={loading}
-			/>
-		</div>
+		<Button type="submit">Submit</Button>
 	</form>
-
-	<form method="post" action="?/signout" use:enhance={handleSignOut}>
-		<div>
-			<button class="button block" disabled={loading}>Sign Out</button>
-		</div>
-	</form>
-</div>
+</Section>
